@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "levels": [
+    {
+      "id": "example.tech.synced",
+      "name": "Synced Sparks",
+      "author": "Flozwer",
+      "tags": ["tech", "mid"],
+      "styleProfile": {
+        "density": 0.55,
+        "contrast": 0.78,
+        "triggerComplexity": 0.62,
+        "symmetry": 0.4
+      },
+      "difficulty": 0.58,
+      "lastUsed": null
+    }
+  ]
+}

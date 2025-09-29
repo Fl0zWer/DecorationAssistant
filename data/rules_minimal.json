@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "rules": [
+    {
+      "id": "border_fill_empty",
+      "when": {
+        "region": "raw_edges",
+        "densityBelow": 0.15
+      },
+      "suggest": {
+        "type": "Border",
+        "priority": 0.7,
+        "confidence": 0.6,
+        "rationale": "Añade un borde suave para zonas sin definición",
+        "params": {
+          "thickness": 8,
+          "glow": false
+        }
+      }
+    },
+    {
+      "id": "glow_monochrome",
+      "when": {
+        "palette": "monochrome"
+      },
+      "suggest": {
+        "type": "Glow",
+        "priority": 0.65,
+        "confidence": 0.5,
+        "rationale": "Una luz lateral evita que la paleta monocroma se perciba plana",
+        "params": {
+          "intensity": 0.55
+        }
+      }
+    },
+    {
+      "id": "particle_drop",
+      "when": {
+        "audioDrop": true
+      },
+      "suggest": {
+        "type": "Particle",
+        "priority": 0.8,
+        "confidence": 0.7,
+        "rationale": "Partículas coordinadas con el drop refuerzan el impacto",
+        "params": {
+          "burst": true,
+          "lifetime": 0.9
+        }
+      },
+      "andThen": {
+        "type": "Pulse",
+        "priority": 0.75,
+        "confidence": 0.65,
+        "rationale": "Sincroniza un pulso de color con el drop detectado",
+        "params": {
+          "channel": 2
+        }
+      }
+    },
+    {
+      "id": "theme_heuristic",
+      "when": {
+        "styleHint": "tech",
+        "densityBetween": [0.2, 0.6]
+      },
+      "suggest": {
+        "type": "ThemeElement",
+        "priority": 0.6,
+        "confidence": 0.55,
+        "rationale": "Agrega elementos tecnológicos para reforzar el estilo detectado",
+        "params": {
+          "library": "tech_beams"
+        }
+      }
+    }
+  ]
+}

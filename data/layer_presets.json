@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "presets": [
+    {
+      "name": "Clean-Tech",
+      "rules": [
+        { "family": "Blocks",    "layer": 1, "zOrder": 0,  "detail": "back" },
+        { "family": "Outlines",  "layer": 1, "zOrder": 5,  "detail": "front" },
+        { "family": "Gears",     "layer": 2, "zOrder": 10, "detail": "front", "groupPrefix": "DA_GEAR" },
+        { "family": "Pipes",     "layer": 2, "zOrder": 8,  "detail": "mid" },
+        { "family": "Particles", "layer": 2, "zOrder": 12, "detail": "front", "throttle": 0.6 }
+      ],
+      "conflictPolicy": "last-wins",
+      "zOrderBounds": { "min": -10, "max": 20 }
+    },
+    {
+      "name": "Nature-Depth",
+      "rules": [
+        { "family": "Terrain",   "layer": -1, "zOrder": -5, "detail": "back" },
+        { "family": "Foliage",   "layer": 1,  "zOrder": 6,  "detail": "front", "throttle": 0.7 },
+        { "family": "Particles", "layer": 0,  "zOrder": 3,  "detail": "mid", "groupPrefix": "DA_SPORE" }
+      ],
+      "conflictPolicy": "merge",
+      "zOrderBounds": { "min": -20, "max": 15 }
+    }
+  ]
+}
