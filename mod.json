@@ -1,0 +1,80 @@
+{
+  "geode": "^4.0.0",
+  "version": "0.2.0",
+  "id": "flozwer.decorationassistant",
+  "name": "Decoration Assistant",
+  "developer": "flozwer",
+  "description": "Asistente inteligente de decoración para el Editor de Geometry Dash.",
+  "dependencies": [
+    {
+      "id": "geode.node-ids",
+      "version": "^1.0.0",
+      "optional": true
+    }
+  ],
+  "settings": {
+    "schema": 3,
+    "values": [
+      {
+        "key": "hotkey_toggle_panel",
+        "type": "hotkey",
+        "default": "keyboard:Y"
+      },
+      {
+        "key": "style_intensity",
+        "type": "enum",
+        "default": "balanced",
+        "options": ["minimal", "balanced", "loaded"]
+      },
+      {
+        "key": "theme_mode",
+        "type": "enum",
+        "default": "auto",
+        "options": ["auto", "space", "tech", "nature", "neon"]
+      },
+      {
+        "key": "apply_preview_only",
+        "type": "bool",
+        "default": false
+      },
+      {
+        "key": "auto_pulse_on_drops",
+        "type": "bool",
+        "default": true
+      },
+      {
+        "key": "seed",
+        "type": "int",
+        "default": 1337
+      },
+      {
+        "key": "autolayer_active_preset",
+        "type": "string",
+        "default": "Clean-Tech"
+      },
+      {
+        "key": "autolayer_preview_tint",
+        "type": "bool",
+        "default": true
+      },
+      {
+        "key": "corpus_max_size",
+        "type": "int",
+        "default": 12,
+        "constraints": {
+          "min": 1,
+          "max": 64
+        }
+      },
+      {
+        "key": "learn_from_selection_only",
+        "type": "bool",
+        "default": false
+      }
+    ]
+  },
+  "about": "about.md",
+  "supports": [
+    "2.2"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "palettes": [
+    {
+      "name": "Neutral Dawn",
+      "base": "#f8f2e4",
+      "accents": ["#f28f3b", "#c8553d", "#5d576b"],
+      "mood": "nature",
+      "contrastTarget": 0.68
+    },
+    {
+      "name": "Neon Vertex",
+      "base": "#05070f",
+      "accents": ["#21d4fd", "#b721ff", "#ff7ae0"],
+      "mood": "neon",
+      "contrastTarget": 0.82
+    },
+    {
+      "name": "Orbital Steel",
+      "base": "#121820",
+      "accents": ["#4f5d75", "#2d3142", "#ef8354"],
+      "mood": "tech",
+      "contrastTarget": 0.74
+    }
+  ]
+}
