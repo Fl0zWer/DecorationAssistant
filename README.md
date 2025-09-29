@@ -43,8 +43,16 @@ CMake Error at CMakeLists.txt:7 (find_package):
 Verifica lo siguiente:
 
 1. **Geode SDK instalado**: confirma que seguiste la [guía de instalación](https://docs.geode-sdk.org/geode/getting-started/installation) y que la carpeta `geode-sdk` contiene los subdirectorios `lib`, `include` y `share`.
+
+2. **Detección automática**: el `CMakeLists.txt` intentará resolver el SDK leyendo las variables de entorno `GEODE_SDK`,
+   `GEODE_SDK_PATH`, `GEODE_SDK_ROOT` o `Geode_DIR`, además de rutas comunes (`~/geode-sdk`, `%LOCALAPPDATA%/geode-sdk`, etc.).
+   Si el SDK está instalado ahí, no necesitas pasar flags adicionales.
+3. **Variable `Geode_DIR`**: si la autodetección no funciona, apunta CMake al archivo de configuración del SDK. Evita rutas con
+   `~`; usa la ruta absoluta que muestra `pwd` o el explorador de archivos.
+
 2. **Variable `Geode_DIR`**: apunta CMake al archivo de configuración del SDK. Evita rutas con `~`; usa la ruta absoluta que
    muestra `pwd` o el explorador de archivos.
+
 
    ```bash
    cmake -S . -B build -DGeode_DIR="/home/usuario/geode-sdk/share/cmake/Geode"
@@ -68,10 +76,16 @@ Verifica lo siguiente:
    cmake -S . -B build -G "Ninja"
    ```
 
+
+4. **Verifica la ruta efectiva**: comprueba que `GeodeConfig.cmake` existe en la ruta especificada. Debe estar en
+   `geode-sdk/share/cmake/Geode/GeodeConfig.cmake`. Si no está, reinstala el SDK con `geode sdk install`.
+
+5. **Entorno limpio**: si el error persiste, borra la carpeta `build/` y vuelve a generar la configuración para asegurarte de que CMake recoja las nuevas rutas.
 3. **Verifica la ruta efectiva**: comprueba que `GeodeConfig.cmake` existe en la ruta especificada. Debe estar en
    `geode-sdk/share/cmake/Geode/GeodeConfig.cmake`. Si no está, reinstala el SDK con `geode sdk install`.
 
 4. **Entorno limpio**: si el error persiste, borra la carpeta `build/` y vuelve a generar la configuración para asegurarte de que CMake recoja las nuevas rutas.
+
 
 Una vez que CMake encuentre el paquete `Geode`, el comando `ninja -C build` completará la compilación sin errores.
 
