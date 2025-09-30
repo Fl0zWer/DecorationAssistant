@@ -18,6 +18,7 @@ option(DA_COPY_TO_MODS_DIR    "Copiar binario a la carpeta de mods post-build" O
 option(DA_FETCH_GEODE         "Descargar geode-sdk automáticamente si no está" OFF)
 set(DA_GEODE_TAG "main" CACHE STRING "Tag/branch del geode-sdk al hacer FetchContent")
 set(GEODE_SDK_DIR "" CACHE PATH "Ruta al geode-sdk si no usas ENV{GEODE_SDK}")
+set(DA_REQUIRED_DOTNET_RUNTIME "8.0.7" CACHE STRING "Runtime mínimo de .NET requerido por las tareas de Geode")
 
 if(MSVC)
   #
@@ -34,6 +35,17 @@ if(MSVC)
   add_compile_options(/W4 /permissive- /MP /utf-8 /Zm200)
   if(DA_WARNINGS_AS_ERRORS)
     add_compile_options(/WX)
+  endif()
+
+  set(_ensure_dotnet_ps1 "${CMAKE_CURRENT_SOURCE_DIR}/scripts/ensure_dotnet_runtime.ps1")
+  if(EXISTS "${_ensure_dotnet_ps1}")
+    add_custom_target(DecorationAssistantEnsureDotnetRuntime ALL
+      COMMAND ${CMAKE_COMMAND} -E echo "Comprobando runtime de .NET ${DA_REQUIRED_DOTNET_RUNTIME}..."
+      COMMAND powershell -NoProfile -ExecutionPolicy Bypass -File "${_ensure_dotnet_ps1}" -Version ${DA_REQUIRED_DOTNET_RUNTIME}
+      BYPRODUCTS "${CMAKE_BINARY_DIR}/.dotnet-bootstrap"
+      COMMENT "Preparando dependencias de Geode (runtime .NET)"
+      VERBATIM
+    )
   endif()
 else()
   add_compile_options(-Wall -Wextra -Wno-unused-parameter)
@@ -80,6 +92,13 @@ file(GLOB_RECURSE DA_SOURCES CONFIGURE_DEPENDS
 )
 
 add_library(${PROJECT_NAME} SHARED ${DA_SOURCES})
+
+if(TARGET DecorationAssistantEnsureDotnetRuntime)
+  add_dependencies(${PROJECT_NAME} DecorationAssistantEnsureDotnetRuntime)
+  add_custom_command(TARGET DecorationAssistantEnsureDotnetRuntime POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E touch "${CMAKE_BINARY_DIR}/.dotnet-bootstrap"
+  )
+endif()
 
 # Includes del proyecto
 target_include_directories(${PROJECT_NAME} PRIVATE
