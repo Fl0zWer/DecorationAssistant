@@ -5,6 +5,11 @@
   "name": "Decoration Assistant",
   "developer": "flozwer",
   "description": "Asistente inteligente de decoración para el Editor de Geometry Dash.",
+  "gd": {
+    "platforms": {
+      "win": ["2.2"]
+    }
+  },
   "dependencies": [
     {
       "id": "geode.node-ids",
