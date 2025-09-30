@@ -20,7 +20,18 @@ set(DA_GEODE_TAG "main" CACHE STRING "Tag/branch del geode-sdk al hacer FetchCon
 set(GEODE_SDK_DIR "" CACHE PATH "Ruta al geode-sdk si no usas ENV{GEODE_SDK}")
 
 if(MSVC)
-  add_compile_options(/W4 /permissive- /MP /utf-8)
+  #
+  # Nota sobre /Zm:
+  # ----------------
+  # Al compilar con MSVC algunos usuarios reportaron el error
+  #   C3859/C1090: "no se pudo crear memoria virtual para PCH"
+  # que indica que el compilador agotó el espacio reservado para
+  # el estado interno/precompiled headers.  Aumentar el valor del
+  # flag /Zm incrementa dicho límite y permite que la solución se
+  # compile correctamente en máquinas con la configuración por
+  # defecto de Visual Studio.
+  #
+  add_compile_options(/W4 /permissive- /MP /utf-8 /Zm200)
   if(DA_WARNINGS_AS_ERRORS)
     add_compile_options(/WX)
   endif()
