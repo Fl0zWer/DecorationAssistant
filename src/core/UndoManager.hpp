@@ -24,9 +24,13 @@ public:
 
 class CreateObjectsCommand : public ICommand {
 public:
+    LevelEditorLayer* layer = nullptr;
     std::vector<GameObject*> created;
-    void apply() override {}
-    void revert() override {}
+
+    ~CreateObjectsCommand() override;
+
+    void apply() override;
+    void revert() override;
 };
 
 class DeleteObjectsCommand : public ICommand {
