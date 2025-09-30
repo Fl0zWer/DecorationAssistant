@@ -43,16 +43,11 @@ CMake Error at CMakeLists.txt:7 (find_package):
 Verifica lo siguiente:
 
 1. **Geode SDK instalado**: confirma que seguiste la [guía de instalación](https://docs.geode-sdk.org/geode/getting-started/installation) y que la carpeta `geode-sdk` contiene los subdirectorios `lib`, `include` y `share`.
-
 2. **Detección automática**: el `CMakeLists.txt` intentará resolver el SDK leyendo las variables de entorno `GEODE_SDK`,
    `GEODE_SDK_PATH`, `GEODE_SDK_ROOT` o `Geode_DIR`, además de rutas comunes (`~/geode-sdk`, `%LOCALAPPDATA%/geode-sdk`, etc.).
    Si el SDK está instalado ahí, no necesitas pasar flags adicionales.
-3. **Variable `Geode_DIR`**: si la autodetección no funciona, apunta CMake al archivo de configuración del SDK. Evita rutas con
-   `~`; usa la ruta absoluta que muestra `pwd` o el explorador de archivos.
-
-2. **Variable `Geode_DIR`**: apunta CMake al archivo de configuración del SDK. Evita rutas con `~`; usa la ruta absoluta que
-   muestra `pwd` o el explorador de archivos.
-
+3. **Variables manuales**: si la autodetección no funciona, apunta CMake al archivo de configuración del SDK (evita `~`; usa
+   la ruta absoluta que muestra `pwd` o el explorador de archivos).
 
    ```bash
    cmake -S . -B build -DGeode_DIR="/home/usuario/geode-sdk/share/cmake/Geode"
@@ -64,7 +59,7 @@ Verifica lo siguiente:
    cmake -S . -B build -G "Ninja" -DGeode_DIR="C:/Users/tuUsuario/geode-sdk/share/cmake/Geode"
    ```
 
-   Si prefieres usar `CMAKE_PREFIX_PATH`, exporta/agrega el directorio `share/cmake` completo:
+4. **Prefijo alternativo**: si prefieres usar `CMAKE_PREFIX_PATH`, exporta/agrega el directorio `share/cmake` completo:
 
    ```bash
    export CMAKE_PREFIX_PATH="/home/usuario/geode-sdk/share/cmake:$CMAKE_PREFIX_PATH"
@@ -76,16 +71,9 @@ Verifica lo siguiente:
    cmake -S . -B build -G "Ninja"
    ```
 
-
-4. **Verifica la ruta efectiva**: comprueba que `GeodeConfig.cmake` existe en la ruta especificada. Debe estar en
+5. **Verifica la ruta efectiva**: comprueba que `GeodeConfig.cmake` existe en la ruta especificada. Debe estar en
    `geode-sdk/share/cmake/Geode/GeodeConfig.cmake`. Si no está, reinstala el SDK con `geode sdk install`.
-
-5. **Entorno limpio**: si el error persiste, borra la carpeta `build/` y vuelve a generar la configuración para asegurarte de que CMake recoja las nuevas rutas.
-3. **Verifica la ruta efectiva**: comprueba que `GeodeConfig.cmake` existe en la ruta especificada. Debe estar en
-   `geode-sdk/share/cmake/Geode/GeodeConfig.cmake`. Si no está, reinstala el SDK con `geode sdk install`.
-
-4. **Entorno limpio**: si el error persiste, borra la carpeta `build/` y vuelve a generar la configuración para asegurarte de que CMake recoja las nuevas rutas.
-
+6. **Entorno limpio**: si el error persiste, borra la carpeta `build/` y vuelve a generar la configuración para asegurarte de que CMake recoja las nuevas rutas.
 
 Una vez que CMake encuentre el paquete `Geode`, el comando `ninja -C build` completará la compilación sin errores.
 
@@ -97,13 +85,13 @@ Al compilar con Visual Studio 2022 algunas instalaciones antiguas de MSBuild pue
 error : No se puede leer la salida de 'C:\LevelEditor\...': No se puede cargar el archivo o ensamblado 'System.Text.Json, Version=8.0.0.0...'
 ```
 
-Este mensaje indica que la instancia de Visual Studio está utilizando una versión del runtime de .NET sin el ensamblado `System.Text.Json` 8.0, requerido por las tareas de empaquetado de Geode. Para solucionarlo:
+Este mensaje indica que la instancia de Visual Studio está utilizando una versión del runtime de .NET sin el ensamblado `System.Text.Json` 8.0, requerido por las tareas de empaquetado de Geode. El `CMakeLists.txt` del proyecto ahora ejecuta automáticamente `scripts/ensure_dotnet_runtime.ps1` para instalar el runtime mínimo (`8.0.7`) en la carpeta del usuario antes de compilar. Si el entorno no tiene acceso a internet o prefieres realizarlo manualmente:
 
-1. **Actualiza Visual Studio 2022** a la versión 17.8 o posterior desde el instalador oficial. Las versiones nuevas incluyen el runtime de .NET 8 necesario.
-2. **O instala manualmente el runtime de .NET 8** (desktop o hosting) desde [dotnet.microsoft.com](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) y reinicia Visual Studio.
+1. **Actualiza Visual Studio 2022** a la versión 17.8 o posterior desde el instalador oficial **o**
+2. **Instala el runtime de .NET 8** (desktop o hosting) desde [dotnet.microsoft.com](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) y reinicia Visual Studio.
 3. Tras la actualización, limpia la carpeta `build/` y vuelve a generar la solución (`CMake → Delete Cache` o elimina manualmente la carpeta) antes de recompilar.
 
-Con el runtime actualizado las herramientas de Geode volverán a ejecutar sus pasos de post-proceso sin el fallo del ensamblado faltante.
+Con el runtime instalado (ya sea automáticamente por el script o manualmente) las herramientas de Geode volverán a ejecutar sus pasos de post-proceso sin el fallo del ensamblado faltante.
 
 ## Hotkeys y ajustes
 
