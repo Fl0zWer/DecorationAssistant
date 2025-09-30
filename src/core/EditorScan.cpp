@@ -1,6 +1,9 @@
 #include "EditorScan.hpp"
 #include "../integration/EditorAdapter.hpp"
 
+#include <Geode/utils/cocos.hpp>
+#include <fmt/format.h>
+
 using namespace geode::prelude;
 
 namespace DecorationAssistant::Core {
