@@ -1,4 +1,5 @@
 #include "Color.hpp"
+#include <sstream>
 
 namespace DecorationAssistant::Utils {
 
