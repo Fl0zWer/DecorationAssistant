@@ -1,7 +1,9 @@
 #include "LayerAssigner.hpp"
 #include "../utils/Json.hpp"
 #include <Geode/utils/file.hpp>
+#include <algorithm>
 #include <fmt/format.h>
+#include <memory>
 
 using namespace geode::prelude;
 
