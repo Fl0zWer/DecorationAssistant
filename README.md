@@ -89,6 +89,22 @@ Verifica lo siguiente:
 
 Una vez que CMake encuentre el paquete `Geode`, el comando `ninja -C build` completará la compilación sin errores.
 
+### Error "System.Text.Json" en Visual Studio
+
+Al compilar con Visual Studio 2022 algunas instalaciones antiguas de MSBuild pueden mostrar un error similar a:
+
+```
+error : No se puede leer la salida de 'C:\LevelEditor\...': No se puede cargar el archivo o ensamblado 'System.Text.Json, Version=8.0.0.0...'
+```
+
+Este mensaje indica que la instancia de Visual Studio está utilizando una versión del runtime de .NET sin el ensamblado `System.Text.Json` 8.0, requerido por las tareas de empaquetado de Geode. Para solucionarlo:
+
+1. **Actualiza Visual Studio 2022** a la versión 17.8 o posterior desde el instalador oficial. Las versiones nuevas incluyen el runtime de .NET 8 necesario.
+2. **O instala manualmente el runtime de .NET 8** (desktop o hosting) desde [dotnet.microsoft.com](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) y reinicia Visual Studio.
+3. Tras la actualización, limpia la carpeta `build/` y vuelve a generar la solución (`CMake → Delete Cache` o elimina manualmente la carpeta) antes de recompilar.
+
+Con el runtime actualizado las herramientas de Geode volverán a ejecutar sus pasos de post-proceso sin el fallo del ensamblado faltante.
+
 ## Hotkeys y ajustes
 
 Los ajustes se exponen mediante Settings v3 en `mod.json`:
