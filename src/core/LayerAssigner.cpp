@@ -11,7 +11,7 @@ void LayerAssigner::load(const std::filesystem::path& path) {
     m_presets.clear();
     auto raw = file::readString(path);
     if (!raw) {
-        log::warn("LayerAssigner: missing presets {}");
+        log::warn("LayerAssigner: missing presets {}", path.string());
         return;
     }
     auto json = Utils::jsonFromString(*raw);
@@ -60,7 +60,7 @@ LayerPlan LayerAssigner::buildPlan(LevelEditorLayer* layer, const LayerPreset& p
         const auto& rule = preset.rules[index % preset.rules.size()];
         if (rule.throttle < 1.f) {
             float ratio = static_cast<float>((index % 100)) / 100.f;
-            if (ratio > rule.throttle) {
+            if (ratio >= rule.throttle) {
                 ++index;
                 continue;
             }
