@@ -16,7 +16,7 @@ void RuleEngine::loadFromFile(const std::filesystem::path& path) {
     }
     auto json = Utils::jsonFromString(*raw);
     if (!json) {
-        log::warn("RuleEngine: invalid JSON {}");
+        log::warn("RuleEngine: invalid JSON {}", path.string());
         return;
     }
     if (!json->contains("rules")) {
