@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Geode/Geode.hpp>
+#include <nlohmann/json.hpp>
 #include <optional>
 
 namespace DecorationAssistant::Utils {

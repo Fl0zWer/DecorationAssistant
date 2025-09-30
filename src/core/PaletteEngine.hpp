@@ -2,6 +2,7 @@
 
 #include "Suggestion.hpp"
 #include <filesystem>
+#include <optional>
 
 namespace DecorationAssistant::Core {
 

@@ -3,7 +3,9 @@
 #include "Suggestion.hpp"
 #include "EditorScan.hpp"
 #include <filesystem>
+#include <optional>
 #include <random>
+#include <nlohmann/json_fwd.hpp>
 
 namespace DecorationAssistant::Core {
 

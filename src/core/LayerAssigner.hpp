@@ -3,6 +3,8 @@
 #include <Geode/Geode.hpp>
 #include "UndoManager.hpp"
 #include <filesystem>
+#include <optional>
+#include <utility>
 
 namespace DecorationAssistant::Core {
 

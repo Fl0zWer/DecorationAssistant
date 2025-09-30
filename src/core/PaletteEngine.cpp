@@ -1,6 +1,8 @@
 #include "PaletteEngine.hpp"
 #include "../utils/Json.hpp"
 #include <Geode/utils/file.hpp>
+#include <cmath>
+#include <limits>
 #include <sstream>
 
 using namespace geode::prelude;
